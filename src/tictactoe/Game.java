@@ -2,10 +2,22 @@ package tictactoe;
 
 public class Game {
     private final Board board = new Board();
-    private final IPlayer player1 = new User();
-    private final IPlayer player2 = new Bot();
-    private IPlayer nextMovingPlayer = player1;
-    private GameState state = GameState.NOT_FINISHED;
+    private IPlayer playerX;
+    private IPlayer playerO;
+    private IPlayer nextMovingPlayer;
+    private GameState state;
+
+    public Game(IPlayer playerX, IPlayer playerO) {
+        this.playerX = playerX;
+        this.playerO = playerO;
+        this.nextMovingPlayer = playerX;
+        this.state = GameState.NOT_FINISHED;
+    }
+
+    public Game() {
+        this(new User(), new Bot());
+    }
+
 
     /**
      * starts the game
@@ -54,10 +66,10 @@ public class Game {
     }
 
     private void updateNextMovingPlayer() {
-        if (nextMovingPlayer.equals(player1)) {
-            nextMovingPlayer = player2;
+        if (nextMovingPlayer.equals(playerX)) {
+            nextMovingPlayer = playerO;
         } else {
-            nextMovingPlayer = player1;
+            nextMovingPlayer = playerX;
         }
     }
 }
