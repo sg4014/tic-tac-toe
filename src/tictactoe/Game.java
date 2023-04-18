@@ -2,22 +2,16 @@ package tictactoe;
 
 public class Game {
     private final Board board = new Board();
-    private final IPlayer playerX;
-    private final IPlayer playerO;
-    private IPlayer nextMovingPlayer;
-    private GameState state;
+    private final Player playerX;
+    private final Player playerO;
+    private Player nextMovingPlayer;
+    private GameState state = GameState.NOT_FINISHED;
 
-    public Game(IPlayer playerX, IPlayer playerO) {
+    public Game(Player playerX, Player playerO) {
         this.playerX = playerX;
         this.playerO = playerO;
         this.nextMovingPlayer = playerX;
-        this.state = GameState.NOT_FINISHED;
     }
-
-    public Game() {
-        this(new User(), new Bot());
-    }
-
 
     /**
      * starts the game
@@ -33,11 +27,7 @@ public class Game {
     private void runGameLoop() {
         while (state == GameState.NOT_FINISHED) {
             board.print();
-
-            int[] nextMoveCoordinates = nextMovingPlayer.getNextMoveCoordinates(board);
-
-            board.fillCell(nextMoveCoordinates);
-
+            nextMovingPlayer.makeNextMove(board);
             updateState();
             updateNextMovingPlayer();
         }

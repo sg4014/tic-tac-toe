@@ -3,9 +3,13 @@ package tictactoe;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class User implements IPlayer {
+public class User extends Player {
+
+    public User(CellValue moveSymbol) {
+        super(moveSymbol);
+    }
     @Override
-    public int[] getNextMoveCoordinates(Board board) {
+    public void makeNextMove(Board board) {
         Scanner scanner = new Scanner(System.in);
         int x;
         int y;
@@ -39,7 +43,8 @@ public class User implements IPlayer {
                 continue;
             }
 
-            return coordinates;
+            board.fillCell(coordinates);
+            break;
         }
     };
 }

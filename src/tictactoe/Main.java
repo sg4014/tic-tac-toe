@@ -29,18 +29,18 @@ public class Main {
                 continue;
             }
 
-            IPlayer playerX = getPlayer(inputArguments[1]);
-            IPlayer playerO = getPlayer(inputArguments[2]);
+            Player playerX = getPlayer(inputArguments[1], CellValue.X);
+            Player playerO = getPlayer(inputArguments[2], CellValue.O);
 
             Game game = new Game(playerX, playerO);
             game.start();
         }
     }
 
-    private static IPlayer getPlayer(String whoPlays) {
+    private static Player getPlayer(String whoPlays, CellValue moveSymbol) {
         return switch (whoPlays) {
-            case "easy" -> new Bot();
-            case "user" -> new User();
+            case "easy" -> new EasyBot(moveSymbol);
+            case "user" -> new User(moveSymbol);
             default -> throw new IllegalArgumentException("Unknown type of player: "
                     + whoPlays);
         };
