@@ -36,14 +36,12 @@ public class User extends Player {
                 continue;
             }
 
-            int[] coordinates = new int[]{x, y};
-
-            if (board.isCellFilled(coordinates)) {
+            if (board.isCellFilled(x, y)) {
                 System.out.println("The cell is already filled.");
                 continue;
             }
 
-            board.fillCell(coordinates);
+            board.fillCell(x, y);
             break;
         }
     };

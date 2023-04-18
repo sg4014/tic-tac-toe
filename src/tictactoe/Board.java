@@ -31,18 +31,21 @@ public class Board {
         System.out.println("---------");
     }
 
-    public boolean isCellFilled(int[] coordinates) {
-        /* subtract 1 since coordinates are 1-based, and index is 0-based */
-        int m = coordinates[0] - 1;
-        int n = coordinates[1] - 1;
-        return (table[m][n] != CellValue.BLANK);
+    public boolean isCellFilled(int row, int column) {
+        return getCellValue(row, column) != CellValue.BLANK;
     }
 
-    public void fillCell(int[] coordinates) {
+    /**
+     * returns the value at the given position on the board;
+     * Note: the position is 1-based (from 1 to 3)
+     */
+    public CellValue getCellValue(int row, int column) {
+        return table[row - 1][column - 1];
+    }
+
+    public void fillCell(int row, int column) {
         /* subtract 1 since coordinates are 1-based, and index is 0-based */
-        int m = coordinates[0] - 1;
-        int n = coordinates[1] - 1;
-        table[m][n] = nextCellValue;
+        table[row - 1][column - 1] = nextCellValue;
 
         updateNextCellValue();
         emptyCellsLeft--;

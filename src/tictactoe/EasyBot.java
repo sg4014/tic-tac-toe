@@ -16,14 +16,13 @@ public class EasyBot extends Player {
             int x = random.nextInt(3) + 1;
             int y = random.nextInt(3) + 1;
 
-            int[] coordinates = new int[]{x, y};
 
-            if (board.isCellFilled(coordinates)) {
+            if (board.isCellFilled(x, y)) {
                 continue;
             }
 
             System.out.println("Making move level \"easy\"");
-            board.fillCell(coordinates);
+            board.fillCell(x, y);
             break;
         }
     }
