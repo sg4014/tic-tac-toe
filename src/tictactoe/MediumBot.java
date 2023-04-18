@@ -9,46 +9,70 @@ public class MediumBot extends Player {
     }
     @Override
     public void makeNextMove(Board board) {
+        /* make a winning move if there is such */
+        int[] moveToWinInstantly = getMoveToWinInstantly(board, moveSymbol);
+
+        if (moveToWinInstantly != null) {
+            makeMove(board, moveToWinInstantly);
+            return;
+        }
+
+        /* prevent the opponent's winning move if there is such */
+        CellValue opponentMoveSymbol = (moveSymbol == CellValue.X)
+                ? CellValue.O
+                : CellValue.X;
+
+        int[] opponentMoveToWinInstantly =
+                getMoveToWinInstantly(board, opponentMoveSymbol);
+
+        if (opponentMoveToWinInstantly != null) {
+            makeMove(board, opponentMoveToWinInstantly);
+            return;
+        }
+
+        makeRandomMove(board);
+    }
+
+    private int[] getMoveToWinInstantly(Board board, CellValue moveSymbol) {
+        for (int i = 1; i < 4; i++) {
+            for (int k = 1; k < 4; k++) {
+                if (board.isCellFilled(i, k)) {
+                    continue;
+                }
+
+                board.fillCellWith(i, k, moveSymbol);
+
+                if (board.isThreeInRow(moveSymbol)) {
+                    board.fillCellWith(i, k, CellValue.BLANK);
+                    return new int[]{i, k};
+                }
+
+                board.fillCellWith(i, k, CellValue.BLANK);
+            }
+        }
+
+        return null;
+    }
+
+    private void makeMove(Board board, int[] coordinates) {
+        System.out.println("Making move level \"medium\"");
+        int row = coordinates[0];
+        int column = coordinates[1];
+        board.fillCellWith(row, column, moveSymbol);
+    }
+
+    private void makeRandomMove(Board board) {
         Random random = new Random();
 
-        /*
-        moveToWinInstantly = getMoveToWinInstantly()
-
-        if moveToWinInstantly != null:
-            return moveToWinInstantly
-
-        opponentMoveToWinInstantly = getOpponentMoveToWinInstantly()
-
-        if opponentMoveToWinInstantly != null:
-            return opponentMoveToWinInstantly
-
-        else:
-            makeRandomMove()
-         */
-
-        int row = 1;
-        int column = 1;
+        int row = random.nextInt(3) + 1;
+        int column = random.nextInt(3) + 1;
 
         while (board.isCellFilled(row, column)) {
             row = random.nextInt(3) + 1;
             column = random.nextInt(3) + 1;
         }
 
-        System.out.println("Making move level \"easy\"");
-        board.fillCell(row, column);
-    }
-
-    private int[] getMoveToWinInstantly(Board board) {
-        // move with horizontal row
-        if (board.getCellValue(1, 1) == moveSymbol
-                && board.getCellValue(1, 2) == moveSymbol
-                && !board.isCellFilled(1, 3)) {
-            return new int[]{1, 3};
-        }
-
-        return new int[2];
-        // move with vertical row
-
-        // move with diagonal row
+        System.out.println("Making move level \"medium\"");
+        board.fillCellWith(row, column, moveSymbol);
     }
 }

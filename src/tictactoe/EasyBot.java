@@ -8,6 +8,10 @@ public class EasyBot extends Player {
         super(moveSymbol);
     }
 
+    /**
+     * Makes a random valid move
+     * @param board the board on which the move is made
+     */
     @Override
     public void makeNextMove(Board board) {
         Random random = new Random();
@@ -22,7 +26,7 @@ public class EasyBot extends Player {
             }
 
             System.out.println("Making move level \"easy\"");
-            board.fillCell(x, y);
+            board.fillCellWith(x, y, moveSymbol);
             break;
         }
     }

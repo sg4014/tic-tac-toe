@@ -5,18 +5,14 @@ import java.util.stream.Collectors;
 
 public class Board {
 
-    private CellValue[][] table;
-    private CellValue nextCellValue;
-    private int emptyCellsLeft;
+    private final CellValue[][] table;
 
     Board() {
         this.table = getBlankTable();
-        this.nextCellValue = CellValue.X;
-        this.emptyCellsLeft = 9;
     }
 
     /**
-     * prints the board in its current state
+     * Prints the board in its current state
      */
     public void print() {
         System.out.println("---------");
@@ -31,30 +27,46 @@ public class Board {
         System.out.println("---------");
     }
 
+    /**
+     * Returns true if the cell is not BLANK
+     */
     public boolean isCellFilled(int row, int column) {
         return getCellValue(row, column) != CellValue.BLANK;
     }
 
     /**
-     * returns the value at the given position on the board;
+     * Returns the value at the given position on the board;
      * Note: the position is 1-based (from 1 to 3)
      */
     public CellValue getCellValue(int row, int column) {
         return table[row - 1][column - 1];
     }
 
-    public void fillCell(int row, int column) {
-        /* subtract 1 since coordinates are 1-based, and index is 0-based */
-        table[row - 1][column - 1] = nextCellValue;
 
-        updateNextCellValue();
-        emptyCellsLeft--;
+    /**
+     * Fills the cell at the given position with the given value.
+     */
+    public void fillCellWith(int row, int column, CellValue value) {
+        table[row - 1][column - 1] = value;
     }
 
+    /**
+     * Returns true if there are no blank cells on the board
+     */
     public boolean isFull() {
-        return emptyCellsLeft == 0;
+        for (CellValue[] row : table) {
+            if (Arrays.stream(row).anyMatch(v -> v == CellValue.BLANK)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
+    /**
+     * Returns true if the given value occurs on the board
+     * three times in a horizontal, vertical or diagonal row.
+     */
     public boolean isThreeInRow(CellValue value) {
         return isThreeInHorizontalRow(value)
                 || isThreeInVerticalRow(value)
@@ -67,7 +79,6 @@ public class Board {
                     .allMatch(cv -> cv == value)) {
                 return true;
             }
-            ;
         }
 
         return false;
@@ -131,11 +142,4 @@ public class Board {
         return true;
     }
 
-    private void updateNextCellValue() {
-        if (nextCellValue == CellValue.X) {
-            nextCellValue = CellValue.O;
-        } else {
-            nextCellValue = CellValue.X;
-        }
-    }
 }
