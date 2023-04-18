@@ -14,13 +14,22 @@ public class Bot implements IPlayer{
     }
 
     @Override
-    public int[] getNextMoveCoordinates() {
+    public int[] getNextMoveCoordinates(Board board) {
         Random random = new Random();
 
-        int x = random.nextInt(3) + 1;
-        int y = random.nextInt(3) + 1;
+        while (true) {
+            int x = random.nextInt(3) + 1;
+            int y = random.nextInt(3) + 1;
 
-        return new int[]{x, y};
+            int[] coordinates = new int[]{x, y};
+
+            if (board.isCellFilled(coordinates)) {
+                continue;
+            }
+
+            System.out.printf("Making move level \"%s\"\n", level);
+            return coordinates;
+        }
     }
 
     public Difficulty getLevel() {

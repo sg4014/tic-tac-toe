@@ -1,5 +1,5 @@
 package tictactoe;
 
 public interface IPlayer {
-    int[] getNextMoveCoordinates();
+    int[] getNextMoveCoordinates(Board board);
 }

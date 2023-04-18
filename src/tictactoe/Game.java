@@ -2,8 +2,8 @@ package tictactoe;
 
 public class Game {
     private final Board board = new Board();
-    private IPlayer playerX;
-    private IPlayer playerO;
+    private final IPlayer playerX;
+    private final IPlayer playerO;
     private IPlayer nextMovingPlayer;
     private GameState state;
 
@@ -23,34 +23,24 @@ public class Game {
      * starts the game
      */
     public void start() {
+        runGameLoop();
 
-        /* Main game loop */
+        /* when game is finished */
+        board.print();
+        System.out.println(state);
+    }
+
+    private void runGameLoop() {
         while (state == GameState.NOT_FINISHED) {
             board.print();
 
-            int[] nextMoveCoordinates = nextMovingPlayer.getNextMoveCoordinates();
-
-            while (board.isCellFilled(nextMoveCoordinates)) {
-                if (nextMovingPlayer instanceof User) {
-                    System.out.println("The cell is already filled.");
-                }
-
-                nextMoveCoordinates = nextMovingPlayer.getNextMoveCoordinates();
-            }
-
-            if (nextMovingPlayer instanceof Bot) {
-                System.out.println("Making move level " + "\""
-                        + ((Bot) nextMovingPlayer).getLevel() + "\"");
-            }
+            int[] nextMoveCoordinates = nextMovingPlayer.getNextMoveCoordinates(board);
 
             board.fillCell(nextMoveCoordinates);
 
             updateState();
             updateNextMovingPlayer();
         }
-
-        board.print();
-        System.out.println(state);
     }
 
     private void updateState() {

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class User implements IPlayer {
     @Override
-    public int[] getNextMoveCoordinates() {
+    public int[] getNextMoveCoordinates(Board board) {
         Scanner scanner = new Scanner(System.in);
         int x;
         int y;
@@ -32,7 +32,14 @@ public class User implements IPlayer {
                 continue;
             }
 
-            return new int[]{x, y};
+            int[] coordinates = new int[]{x, y};
+
+            if (board.isCellFilled(coordinates)) {
+                System.out.println("The cell is already filled.");
+                continue;
+            }
+
+            return coordinates;
         }
     };
 }
