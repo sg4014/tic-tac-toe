@@ -80,6 +80,10 @@ public class Board {
      * as an array of two integers (row and column position).
      */
     public ArrayList<int[]> getPossibleMoves() {
+        if (isFull()) {
+            throw new RuntimeException("There are no possible moves: the board is full!");
+        }
+
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
         for (int row = 1; row < 4; row++) {
