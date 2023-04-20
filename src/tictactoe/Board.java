@@ -1,5 +1,6 @@
 package tictactoe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class Board {
 
 
     /**
-     * Fills the cell at the given position with the given value.
+     * Fills the cell at the given coordinates with the given value.
      */
     public void fillCellWith(int row, int column, CellValue value) {
         table[row - 1][column - 1] = value;
@@ -71,6 +72,27 @@ public class Board {
         return isThreeInHorizontalRow(value)
                 || isThreeInVerticalRow(value)
                 || isThreeInDiagonalRow(value);
+    }
+
+    /**
+     * Returns coordinates of every blank cell on the board.
+     * Coordinates of each cell are represented
+     * as an array of two integers (row and column position).
+     */
+    public ArrayList<int[]> getPossibleMoves() {
+        ArrayList<int[]> possibleMoves = new ArrayList<>();
+
+        for (int row = 1; row < 4; row++) {
+            for (int column = 1; column < 4; column++) {
+                if (isCellFilled(row, column)) {
+                    continue;
+                }
+
+                possibleMoves.add(new int[]{row, column});
+            }
+        }
+
+        return possibleMoves;
     }
 
     private boolean isThreeInHorizontalRow(CellValue value) {
