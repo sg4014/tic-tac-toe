@@ -12,6 +12,10 @@ public class Board {
         this.table = getBlankTable();
     }
 
+    private Board(CellValue[][] table) {
+        this.table = table;
+    }
+
     /**
      * Prints the board in its current state
      */
@@ -26,6 +30,23 @@ public class Board {
         }
 
         System.out.println("---------");
+    }
+
+    /**
+     * Returns a new board such that
+     * the new board's table is equivalent to this board's table.
+     * (the tables have the same content, but are different objects).
+     */
+    public Board getDeepCopy() {
+        CellValue[][] copyOfTable = new CellValue[3][3];
+
+        for (int i = 1; i < 4; i++) {
+            for (int k = 1; k < 4; k++) {
+                copyOfTable[i][k] = table[i][k];
+            }
+        }
+
+        return new Board(copyOfTable);
     }
 
     /**
