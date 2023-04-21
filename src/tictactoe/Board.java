@@ -12,10 +12,6 @@ public class Board {
         this.table = getBlankTable();
     }
 
-    private Board(CellValue[][] table) {
-        this.table = table;
-    }
-
     /**
      * Prints the board in its current state
      */
@@ -38,15 +34,16 @@ public class Board {
      * (the tables have the same content, but are different objects).
      */
     public Board getDeepCopy() {
-        CellValue[][] copyOfTable = new CellValue[3][3];
+        Board copyOfBoard = new Board();
 
         for (int i = 1; i < 4; i++) {
             for (int k = 1; k < 4; k++) {
-                copyOfTable[i][k] = table[i][k];
+                CellValue boardValue = getCellValue(i, k);
+                copyOfBoard.fillCellWith(i, k, boardValue);
             }
         }
 
-        return new Board(copyOfTable);
+        return copyOfBoard;
     }
 
     /**
@@ -70,6 +67,10 @@ public class Board {
      */
     public void fillCellWith(int row, int column, CellValue value) {
         table[row - 1][column - 1] = value;
+    }
+
+    public void fillCellWith(int[] coordinates, CellValue value) {
+        fillCellWith(coordinates[0], coordinates[1], value);
     }
 
     /**
