@@ -7,6 +7,7 @@ public class MediumBot extends Player {
     public MediumBot(CellValue moveSymbol) {
         super(moveSymbol);
     }
+
     @Override
     public void makeNextMove(Board board) {
         /* make a winning move if there is such */

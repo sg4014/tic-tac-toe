@@ -42,6 +42,7 @@ public class Main {
             case "easy" -> new EasyBot(moveSymbol);
             case "user" -> new User(moveSymbol);
             case "medium" -> new MediumBot(moveSymbol);
+            case "hard" -> new HardBot(moveSymbol);
             default -> throw new IllegalArgumentException("Unknown type of player: "
                     + whoPlays);
         };
