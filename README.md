@@ -1,7 +1,5 @@
-# tic-tac-toe
-Tic-Tac-Toe with AI
+# Tic-Tac-Toe CLI game
 
-Tic-Tac-Toe CLI game.  
 The user can play against themselves or a bot.  
 There are three bots (difficulties): Easy, Medium and Hard.  
 Easy just makes random moves;  
